@@ -9,10 +9,10 @@ main(int argc, char * argv[])
   // Initialize the MPI environment
   MPI_Init(NULL, NULL);
 
-  // create FEProblem on each processor
-  FEProblem KL;
-
-  KL.assembleSparse();
+  // // create FEProblem on each processor
+  // FEProblem KL;
+  //
+  // KL.assembleSparse();
   //
   // Node * n1 = new Node(1, 1.5, 2.5);
   // std::cout << *n1 << std::endl;
@@ -53,11 +53,16 @@ main(int argc, char * argv[])
   // ges.compute(A, B);
   // std::cout << "The (complex) generalzied eigenvalues are: " << ges.eigenvalues().transpose()
   //           << std::endl;
-  //
+
   // Mesh * mesh = new Mesh("mesh.msh");
+  //
+  // for (Elem * e : mesh->active_elems())
+  //   printf("Elem %d on processor %d\n", e->id(), mesh->tid());
   // mesh->printDomainMapping();
   // mesh->printNodes();
   // mesh->printElements();
+
+  FEProblem test(argv[1]);
 
   // Finalize the MPI environment.
   MPI_Finalize();

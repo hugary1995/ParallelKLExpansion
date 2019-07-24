@@ -1,6 +1,21 @@
 #include <Eigen/Sparse>
 #include "FEProblem.h"
 
+FEProblem::FEProblem(const std::string input) : ParallelBase()
+{
+  YAML::Node config = YAML::LoadFile(input);
+  if (config["mesh"])
+    std::cout << "Mesh file name: \033[1;34m" << config["mesh"].as<std::string>() << "\033[0m"
+              << std::endl;
+  else
+    std::cout << "\033[1;31mMissing mesh.\033[0m" << std::endl;
+  _mesh = new Mesh(config["mesh"].as<std::string>());
+
+  _parallel_matrix.resize(3, 3);
+  _transfer_matrix.resize(3, 3);
+  _reduced_matrix.resize(3, 3);
+}
+
 void
 FEProblem::assembleSparse()
 {

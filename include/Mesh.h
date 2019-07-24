@@ -3,6 +3,7 @@
 #include <vector>
 #include <fstream>
 #include <map>
+#include "ParallelBase.h"
 #include "Type.h"
 #include "ElemB2.h"
 #include "ElemT3.h"
@@ -10,12 +11,22 @@
 // Forward Declarations
 class Mesh;
 
-class Mesh
+class Mesh : public ParallelBase
 {
 public:
-  Mesh(std::string file_name) { readMeshFromFile(file_name); }
+  Mesh(std::string file_name) : ParallelBase()
+  {
+    readMeshFromFile(file_name);
+    activateElements();
+  }
 
   void readMeshFromFile(std::string file_name);
+
+  void activateElements();
+
+  std::vector<Elem *> & elems() { return _elems; }
+
+  std::vector<Elem *> & active_elems() { return _active_elems; }
 
   void printDomainMapping()
   {
@@ -41,5 +52,6 @@ private:
 
   std::map<std::string, unsigned int> _domainMapping;
   std::vector<Elem *> _elems;
+  std::vector<Elem *> _active_elems;
   std::vector<Node *> _nodes;
 };

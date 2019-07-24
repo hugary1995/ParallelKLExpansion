@@ -22,7 +22,7 @@ Mesh::readMeshFromFile(const std::string fileName)
 void
 Mesh::readDomains(std::ifstream * meshFile)
 {
-  std::cout << "\033[1;34mReading Domain Names...\033[0m";
+  std::cout << "Reading Domain Names...";
   std::string line;
   std::getline(*meshFile, line);
   std::istringstream parser(line);
@@ -52,7 +52,7 @@ Mesh::readDomains(std::ifstream * meshFile)
 void
 Mesh::readNodes(std::ifstream * meshFile)
 {
-  std::cout << "\033[1;34mReading Nodes...\033[0m";
+  std::cout << "Reading Nodes...";
   std::string line;
   std::getline(*meshFile, line);
   std::istringstream parser(line);
@@ -83,7 +83,7 @@ Mesh::readNodes(std::ifstream * meshFile)
 void
 Mesh::readElements(std::ifstream * meshFile)
 {
-  std::cout << "\033[1;34mReading Elements...\033[0m";
+  std::cout << "Reading Elements...";
   std::string line;
   std::getline(*meshFile, line);
   std::istringstream parser(line);
@@ -127,4 +127,11 @@ Mesh::getNodePtr(unsigned int node_id)
     if ((*node)->id() == node_id)
       return *node;
   return NULL;
+}
+
+void
+Mesh::activateElements()
+{
+  for (unsigned int i = _tid; i < _elems.size(); i += _mpi_size)
+    _active_elems.push_back(_elems[i]);
 }

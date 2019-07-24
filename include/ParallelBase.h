@@ -16,6 +16,10 @@ public:
     _console.setThread(_tid);
   }
 
+  int tid() { return _tid; }
+
+  int mpi_size() { return _mpi_size; }
+
 protected:
   int _tid;
   int _mpi_size;
