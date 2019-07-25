@@ -6,6 +6,12 @@
 int
 main(int argc, char * argv[])
 {
+  if (argc != 2)
+  {
+    std::cout << "Usage ./KLExpansion input.yml" << std::endl;
+    return -1;
+  }
+
   // Initialize the MPI environment
   MPI_Init(NULL, NULL);
 
@@ -57,7 +63,7 @@ main(int argc, char * argv[])
   // Mesh * mesh = new Mesh("mesh.msh");
   //
   // for (Elem * e : mesh->active_elems())
-  //   printf("Elem %d on processor %d\n", e->id(), mesh->tid());
+  // printf("Elem %d on processor %d\n", e->id(), mesh->tid());
   // mesh->printDomainMapping();
   // mesh->printNodes();
   // mesh->printElements();
