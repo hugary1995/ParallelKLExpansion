@@ -12,3 +12,4 @@ KLExpansion: $(obj)
 
 clean:
 	rm -f src/*.o
+	rm -f KLExpansion
